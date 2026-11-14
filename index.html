@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BlendLink for Blender</title>
+<meta name="description" content="Two artists in one Blender scene, live. Rigs, poses, object locks, chat and voice.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0c0f;--card:#15151a;--line:rgba(255,255,255,.09);--text:#f2f2f4;--dim:#a3a3ad;--o:#ff7a1a;--b:#2f8bff}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:Inter,-apple-system,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+.wrap{max-width:980px;margin:0 auto;padding:0 28px}
+section{padding:84px 0;border-top:1px solid var(--line)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:3px;color:var(--o);text-transform:uppercase;margin-bottom:14px}
+h1{font-size:clamp(46px,8vw,86px);font-weight:800;letter-spacing:-.04em;line-height:.95}
+h2{font-size:clamp(32px,5vw,50px);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin-bottom:16px}
+h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.grad{background:linear-gradient(90deg,var(--o),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+p.lead{font-size:19px;color:var(--dim);max-width:640px}
+.logo{display:flex;align-items:center;gap:0;margin-bottom:34px}
+.logo i{width:18px;height:18px;border-radius:50%;display:block}.logo .o{background:var(--o)}.logo .bl{background:var(--b)}
+.logo b{width:12px;height:3px;background:linear-gradient(90deg,var(--o),var(--b));display:block}
+.logo span{margin-left:12px;font-weight:700;font-size:20px;letter-spacing:-.01em}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:999px;padding:7px 15px;font-size:14px;font-weight:600;color:#d9d9df}
+.hero{padding:70px 0 40px;border:0;position:relative}
+.hero:before{content:"";position:absolute;inset:-200px -40% auto;height:700px;background:radial-gradient(40% 50% at 30% 40%,rgba(255,122,26,.18),transparent 70%),radial-gradient(40% 50% at 75% 50%,rgba(47,139,255,.16),transparent 70%);pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translateX(6%)}}
+.shot{margin-top:44px;border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 40px 100px rgba(0,0,0,.6);position:relative}
+.shot img,.shot video{display:block;width:100%;height:auto}
+.shot.video{aspect-ratio:16/9}.shot.video iframe{width:100%;height:100%;border:0;display:block}
+.tag{position:absolute;display:flex;align-items:center;gap:7px;padding:7px 13px 7px 10px;border-radius:10px 10px 10px 2px;font-size:14px;font-weight:700;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:bob 3.2s ease-in-out infinite}
+.tag i{width:8px;height:8px;border-radius:50%;background:#fff}.tag span{font-weight:500;opacity:.85}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.tag.o{background:var(--o)}.tag.b{background:var(--b);animation-delay:-1.6s}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.step .n{display:inline-flex;width:28px;height:28px;border-radius:50%;align-items:center;justify-content:center;background:var(--o);font-weight:700;font-size:14px;margin-bottom:12px}
+.step img{width:100%;border-radius:14px;box-shadow:0 0 0 1px var(--line),0 20px 60px rgba(0,0,0,.5);margin-top:14px}
+.step p{color:var(--dim);font-size:15px}
+.split{display:grid;grid-template-columns:1fr;gap:28px}
+ul.ticks{list-style:none;padding:0;margin-top:22px;display:grid;gap:12px}
+ul.ticks li{padding-left:30px;position:relative;color:#d4d4da}
+ul.ticks li:before{content:"";position:absolute;left:0;top:7px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--o),var(--b))}
+ul.ticks b{color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-top:36px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-3px);border-color:rgba(255,122,26,.45)}
+.card p{color:var(--dim);font-size:14px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.num strong{display:block;font-size:clamp(46px,7vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.num span{color:var(--dim);font-size:15px}
+.foot{color:#70707a;font-size:13px;margin-top:22px}
+.duo{display:grid;grid-template-columns:260px 1fr;gap:36px;align-items:center;margin-top:36px}
+.duo img{width:100%;border-radius:14px;box-shadow:0 0 0 1px var(--line),0 20px 60px rgba(0,0,0,.5)}
+.price{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+.pcard{background:linear-gradient(160deg,rgba(255,122,26,.14),rgba(47,139,255,.12));border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:30px}
+.pcard .p{font-size:54px;font-weight:800;letter-spacing:-.04em}
+.pcard .p small{font-size:16px;color:var(--dim);font-weight:500;letter-spacing:0}
+.plain{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px}
+.plain li,.pcard li{color:#d4d4da;margin:6px 0 0 18px}
+.end{text-align:center;padding:100px 0 120px}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+@media (max-width:760px){.steps,.nums,.price,.duo{grid-template-columns:1fr}.duo img{max-width:300px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <div class="logo"><i class="o"></i><b></b><i class="bl"></i><span>BlendLink</span></div>
+  <h1>Blender for two.<br><span class="grad">Live.</span></h1>
+  <p class="lead" style="margin-top:22px">Edit one Blender scene with a friend at the same time. Model, rig, pose, shade and animate together, and never overwrite each other's work.</p>
+  <div class="chips"><span class="chip">Real-time scene sync</span><span class="chip">Rigs and poses</span><span class="chip">Object locks</span><span class="chip">Chat and voice</span><span class="chip">Internet or LAN</span></div>
+  <div class="shot reveal">
+    <img src="media/hero.webp" alt="A Blender scene with a building selected by one artist">
+    <div class="tag o" style="left:30%;top:18%"><i></i>Dima<span>editing the building</span></div>
+    <div class="tag b" style="left:7%;top:58%"><i></i>Mika<span>moving the combine</span></div>
+  </div>
+  <div class="shot reveal video"><iframe src="https://www.youtube-nocookie.com/embed/uF740-NRh6Q?rel=0" title="BlendLink trailer" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Getting started</div>
+  <h2>One invite. <span class="grad">That's it.</span></h2>
+  <p class="lead">Host a session, copy the invite and send it. Your partner pastes it and joins. The project and its textures arrive by themselves.</p>
+  <div class="steps">
+    <div class="step"><span class="n">1</span><h3>Host</h3><p>Open your .blend and press Host session.</p><img src="media/win_lobby.webp" alt="Host session window" loading="lazy"></div>
+    <div class="step"><span class="n">2</span><h3>Copy the invite</h3><p>One code. Send it in any chat.</p><img src="media/win_invite.webp" alt="Invite window" loading="lazy"></div>
+    <div class="step"><span class="n">3</span><h3>You are both in</h3><p>Edits flow both ways from now on.</p><img src="media/win_session.webp" alt="Live session window" loading="lazy"></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Presence</div>
+  <h2>See who works on <span class="grad">what.</span></h2>
+  <p class="lead">Your partner's selection, name and colour right in your viewport. Watch the combine move while you stay on the building.</p>
+  <div class="shot"><video src="media/presence.mp4" poster="media/presence.webp" autoplay muted loop playsinline preload="metadata"></video></div>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Rigs</div>
+  <h2>Rigs and poses, <span class="grad">live.</span></h2>
+  <p class="lead">Armatures, bone editing, poses, constraints, shape keys, drivers and weights stay in sync. Pose a character while your partner works on the scene.</p>
+  <div class="shot"><video src="media/rigs.mp4" poster="media/rigs.webp" autoplay muted loop playsinline preload="metadata"></video></div>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Object locks</div>
+  <h2>Nobody overwrites <span class="grad">your work.</span></h2>
+  <p class="lead">What you select is yours while you hold it. Your partner sees it boxed in your colour.</p>
+  <div class="shot"><video src="media/locks.mp4" poster="media/locks.webp" autoplay muted loop playsinline preload="metadata"></video></div>
+  <ul class="ticks">
+    <li><b>Select it, it is yours.</b> It stays yours while you hold it.</li>
+    <li><b>Your partner sees it boxed</b> in your colour, with your name.</li>
+    <li><b>Need it? Ask for it.</b> They hand it over with one click.</li>
+  </ul>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Live sync</div>
+  <h2>Your whole scene, <span class="grad">live.</span></h2>
+  <div class="grid">
+    <div class="card"><h3>Objects</h3><p>Create, delete, duplicate, rename, parent, transforms, visibility</p></div>
+    <div class="card"><h3>Meshes</h3><p>Geometry and UVs from Edit Mode, Sculpt Mode strokes</p></div>
+    <div class="card"><h3>Rigs</h3><p>Armatures, bone editing, poses, bone constraints</p></div>
+    <div class="card"><h3>Deformation</h3><p>Vertex groups and weights, shape keys and their animation</p></div>
+    <div class="card"><h3>Animation</h3><p>Keyframes, curves, interpolation, F-Curve modifiers, markers</p></div>
+    <div class="card"><h3>Drivers</h3><p>Expressions, variables and targets</p></div>
+    <div class="card"><h3>Modifiers</h3><p>Every modifier and constraint, Geometry Nodes inputs</p></div>
+    <div class="card"><h3>Nodes</h3><p>Material, world and Geometry Nodes trees</p></div>
+    <div class="card"><h3>Textures</h3><p>Image files travel with the edit that uses them</p></div>
+    <div class="card"><h3>Scene</h3><p>Collections, world, cameras, lights, render settings</p></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Talk</div>
+  <h2>Chat, voice, <span class="grad">marks.</span></h2>
+  <div class="duo">
+    <img src="media/win_chat.webp" alt="Chat window" loading="lazy">
+    <ul class="ticks" style="margin:0">
+      <li><b>Chat inside Blender.</b> Link an object in a message and your partner jumps to it.</li>
+      <li><b>Voice call</b> with mute and push-to-talk. The microphone opens only when you join.</li>
+      <li><b>Marks.</b> Draw on the scene and pin notes in your colour.</li>
+      <li><b>Follow view</b> and a shared timeline to review a shot together.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Performance</div>
+  <h2>Heavy scenes. <span class="grad">No freeze.</span></h2>
+  <div class="nums">
+    <div class="num"><strong class="grad">6.5M</strong><span>vertices in the test scene</span></div>
+    <div class="num"><strong class="grad">0.4 s</strong><span>Blender is busy when your partner joins</span></div>
+    <div class="num"><strong class="grad">0.13 s</strong><span>per sculpt stroke on a 2M-vertex mesh</span></div>
+  </div>
+  <p class="foot">Blender 5.2.3 LTS, Apple M2, 8 GB. Project transfer time depends on your network.</p>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Optional</div>
+  <h2>Your own AI. <span class="grad">Same locks.</span></h2>
+  <div class="duo">
+    <img src="media/win_ai.webp" alt="AI tab" loading="lazy">
+    <p class="lead">Let your AI app (Claude Code, Cursor or any MCP client) edit the shared scene. It follows the same locks, so it can never touch what your partner is holding. Off by default.</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="eyebrow">Good to know</div>
+  <h2>Before you <span class="grad">buy.</span></h2>
+  <div class="price">
+    <div class="pcard">
+      <h3>BlendLink for two</h3>
+      <div class="p">$9.90 <small>one purchase</small></div>
+      <ul><li>You and your partner</li><li>Internet invite or LAN</li><li>Windows, macOS, Linux</li><li>No license key</li></ul>
+    </div>
+    <div class="plain">
+      <h3>Requirements</h3>
+      <ul><li>Blender 4.2 or newer. Tested on 4.2 LTS, 5.2 LTS and 5.3 (macOS)</li><li>Both on the same main Blender version (4.x with 4.x, 5.x with 5.x)</li><li>Two people per session</li></ul>
+      <h3 style="margin-top:18px">Not shared live</h3>
+      <ul><li>Grease Pencil and volumes (travel with the project)</li><li>NLA, compositor, video sequencer</li><li>Undo stays local</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="end reveal">
+  <div class="logo" style="justify-content:center"><i class="o"></i><b></b><i class="bl"></i><span>BlendLink</span></div>
+  <h2>Build it <span class="grad">together.</span></h2>
+</section>
+
+</div>
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// tell the parent page (Superhive) how tall we are, so the iframe has no inner scrollbar
+const post=()=>parent!==window&&parent.postMessage({blendlinkHeight:document.documentElement.scrollHeight},'*');
+addEventListener('load',post);new ResizeObserver(post).observe(document.body);
+</script>
+</body>
+</html>
