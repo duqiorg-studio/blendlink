@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Get BlendLink</title>
+<meta name="description" content="Buy BlendLink, the Blender add-on for two people in one scene, on itch.io, Gumroad or Superhive.">
+<meta property="og:title" content="Get BlendLink">
+<meta property="og:description" content="Two artists in one Blender scene, live. Pick the store you like.">
+<meta property="og:image" content="https://duqiorg-studio.github.io/blendlink/media/hero.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* same tokens as index.html */
+:root{--bg:#0c0c0f;--card:#15151a;--line:rgba(255,255,255,.09);--text:#f2f2f4;--dim:#a3a3ad;--o:#ff7a1a;--b:#2f8bff}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:Inter,-apple-system,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+.wrap{max-width:980px;margin:0 auto;padding:0 28px}
+.hero{padding:64px 0 28px;position:relative}
+.hero:before{content:"";position:absolute;inset:-200px -40% auto;height:700px;background:radial-gradient(40% 50% at 30% 40%,rgba(255,122,26,.18),transparent 70%),radial-gradient(40% 50% at 75% 50%,rgba(47,139,255,.16),transparent 70%);pointer-events:none}
+.hero>*{position:relative}
+.logo{display:flex;align-items:center;margin-bottom:34px}
+.logo i{width:18px;height:18px;border-radius:50%;display:block}.logo .o{background:var(--o)}.logo .bl{background:var(--b)}
+.logo b{width:12px;height:3px;background:linear-gradient(90deg,var(--o),var(--b));display:block}
+.logo span{margin-left:12px;font-weight:700;font-size:20px;letter-spacing:-.01em}
+h1{font-size:clamp(44px,8vw,80px);font-weight:800;letter-spacing:-.04em;line-height:.98}
+.grad{background:linear-gradient(90deg,var(--o),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+p.lead{font-size:19px;color:var(--dim);max-width:640px;margin-top:18px}
+.stores{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:38px 0 14px}
+.store{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;color:inherit;text-decoration:none;transition:transform .15s,border-color .15s}
+.store:hover,.store:focus-visible{transform:translateY(-3px);border-color:rgba(255,255,255,.28);outline:none}
+.store h2{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.store p{color:var(--dim);font-size:15px;margin:8px 0 22px;flex:1}
+.store .price{font-size:15px;font-weight:600;color:#d9d9df;margin-bottom:12px}
+.btn{display:block;text-align:center;font-weight:700;font-size:16px;padding:13px 16px;border-radius:12px;background:var(--b);color:#fff}
+.store:first-child .btn{background:var(--o)}
+.note{color:var(--dim);font-size:15px}
+.video{margin:44px 0 0;border-radius:18px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 0 0 1px var(--line),0 40px 100px rgba(0,0,0,.6)}
+.video iframe{width:100%;height:100%;border:0;display:block}
+footer{padding:44px 0 64px;color:var(--dim);font-size:15px}
+footer a{color:var(--text)}
+@media(max-width:760px){.stores{grid-template-columns:1fr}.hero{padding-top:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="logo"><i class="o"></i><b></b><i class="bl"></i><span>BlendLink</span></div>
+    <h1>Get <span class="grad">BlendLink.</span></h1>
+    <p class="lead">Two artists in one Blender scene, live. One purchase is for two people. Pick the store you like: it is the same add-on everywhere.</p>
+
+    <div class="stores">
+      <a class="store" href="https://blendlink.itch.io/blendlink">
+        <h2>itch.io</h2>
+        <p>Pay by card or PayPal and download right away.</p>
+        <div class="price">$9.90</div>
+        <span class="btn">Buy on itch.io</span>
+      </a>
+      <a class="store" href="https://duqiorg.gumroad.com/l/blendlink">
+        <h2>Gumroad</h2>
+        <p>Instant download, update notices by e-mail.</p>
+        <div class="price">$9.90</div>
+        <span class="btn">Buy on Gumroad</span>
+      </a>
+      <a class="store" href="https://superhivemarket.com/products/blendlink">
+        <h2>Superhive</h2>
+        <p>The Blender marketplace, formerly Blender Market.</p>
+        <div class="price">$9.90</div>
+        <span class="btn">Buy on Superhive</span>
+      </a>
+    </div>
+    <p class="note">Blender 4.2 and newer · Windows, macOS and Linux · your partner installs the same add-on and does not pay.</p>
+
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/0PAWf0ofesI" title="BlendLink trailer" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+  </header>
+  <footer>Want the details first? <a href="./">See what BlendLink does</a>.</footer>
+</div>
+</body>
+</html>
