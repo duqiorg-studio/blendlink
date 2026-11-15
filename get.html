@@ -33,6 +33,7 @@ p.lead{font-size:19px;color:var(--dim);max-width:640px;margin-top:18px}
 .store h2{font-size:24px;font-weight:800;letter-spacing:-.02em}
 .store p{color:var(--dim);font-size:15px;margin:8px 0 22px;flex:1}
 .store .price{font-size:15px;font-weight:600;color:#d9d9df;margin-bottom:12px}
+.price s{color:var(--dim)}.price b{color:var(--o);font-weight:800}
 .btn{display:block;text-align:center;font-weight:700;font-size:16px;padding:13px 16px;border-radius:12px;background:var(--b);color:#fff}
 .store:first-child .btn{background:var(--o)}
 .note{color:var(--dim);font-size:15px}
@@ -54,7 +55,7 @@ footer a{color:var(--text)}
       <a class="store" href="https://blendlink.itch.io/blendlink">
         <h2>itch.io</h2>
         <p>Pay by card or PayPal and download right away.</p>
-        <div class="price">$9.90</div>
+        <div class="price" id="itch-price"><s>$9.90</s> <b>$4.95</b> · 50% off until Nov 28</div>
         <span class="btn">Buy on itch.io</span>
       </a>
       <a class="store" href="https://duqiorg.gumroad.com/l/blendlink">
@@ -76,5 +77,9 @@ footer a{color:var(--text)}
   </header>
   <footer>Want the details first? <a href="./">See what BlendLink does</a>.</footer>
 </div>
+<script>
+// the itch.io sale ends 2026-11-28 14:07 UTC; after that the regular price shows by itself
+if (Date.now() > Date.parse("2026-11-28T14:07:00Z")) document.getElementById("itch-price").textContent = "$9.90";
+</script>
 </body>
 </html>
